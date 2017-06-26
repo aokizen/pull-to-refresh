@@ -141,11 +141,11 @@ public extension ES where Base: UIScrollView {
     /// Footer notice method
     public func  noticeNoMoreData() {
         self.base.footer?.stopRefreshing()
-        self.base.footer?.noMoreData = true
+        self.base.footer?.noticeNoMoreData()
     }
     
     public func resetNoMoreData() {
-        self.base.footer?.noMoreData = false
+        self.base.footer?.resetNoMoreData()
     }
     
     public func stopLoadingMore() {
@@ -518,11 +518,13 @@ open class ESRefreshFooterView: ESRefreshComponent {
     /// Change to no-more-data status.
     open func noticeNoMoreData() {
         self.noMoreData = true
+        self.scrollView?.contentInset.bottom = self.scrollViewInsets.bottom
     }
     
     /// Reset no-more-data status.
     open func resetNoMoreData() {
         self.noMoreData = false
+        self.scrollView?.contentInset.bottom = self.scrollViewInsets.bottom + self.bounds.size.height
     }
     
 }
